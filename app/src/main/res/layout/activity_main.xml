@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/connectButtons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintHeight_percent="0.07"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/buttonConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="4"
+            android:text="Подключить" />
+
+        <Button
+            android:id="@+id/buttonDisconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:layout_weight="1"
+            android:text="Отключить" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewConnectInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="ConnectInfo"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintTop_toBottomOf="@id/connectButtons" />
+
+    <ScrollView
+        android:id="@+id/scrollViewButtons"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.53"
+        app:layout_constraintTop_toBottomOf="@id/textViewConnectInfo" >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/buttonFordTransit7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Transit 7" />
+
+            <Button
+                android:id="@+id/buttonRenaultLoganABS"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Рено Логан2 с АБС" />
+
+            <Button
+                android:id="@+id/buttonToyota"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Toyota" />
+
+            <Button
+                android:id="@+id/buttonUAZPatriot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="УАЗ Патриот" />
+
+            <Button
+                android:id="@+id/buttonGAZelle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="ГАЗель Соболь" />
+
+            <Button
+                android:id="@+id/buttonLadaGrantaWithoutABS"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Лада Гранта без АБС" />
+
+            <Button
+                android:id="@+id/buttonLadaGrantaWithABS"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Лада Гранта с АБС" />
+
+            <Button
+                android:id="@+id/buttonLadaVesta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Лада Веста (оранж)" />
+
+            <Button
+                android:id="@+id/buttonLadaLargus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Лада Ларгус" />
+
+            <Button
+                android:id="@+id/buttonPAZVectorNext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="ПАЗ Вектор Некст" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollView3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#DABCBC"
+        android:fillViewport="true"
+        app:layout_constraintHeight_percent="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollViewButtons">
+
+        <TextView
+            android:id="@+id/textViewReceiced"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textSize="12sp"
+            tools:text="ReceivedData" />
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/WriteProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
