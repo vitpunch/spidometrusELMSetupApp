@@ -10,8 +10,8 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import world.shanya.serialport.SerialPort
-import world.shanya.serialport.SerialPortBuilder
+import com.spidometrus.elmWinderSetup.serialport.SerialPort
+import com.spidometrus.elmWinderSetup.serialport.SerialPortBuilder
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission", "SetTextI18n")
@@ -38,15 +38,15 @@ class MainActivity : AppCompatActivity() {
 
         val writeProgressBar = findViewById<ProgressBar>(R.id.WriteProgressBar)
 
-        val serialPort = SerialPortBuilder
+        val serialPort = com.spidometrus.elmWinderSetup.serialport.SerialPortBuilder
             .setReceivedDataCallback {
                 MainScope().launch {
                     stringBuilder.append(it)
 //                    textViewReceived.text = stringBuilder.toString()
                 }
             }
-            .setReadDataType(SerialPort.READ_STRING)
-            .setSendDataType(SerialPort.SEND_STRING)
+            .setReadDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.READ_STRING)
+            .setSendDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.SEND_STRING)
             .setConnectionStatusCallback { status, bluetoothDevice ->
                 MainScope().launch {
                     if (status) {
