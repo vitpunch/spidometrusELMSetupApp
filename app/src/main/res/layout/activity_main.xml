@@ -61,6 +61,18 @@
                 android:text="Ford Transit 7" />
 
             <Button
+                android:id="@+id/buttonHyundai1genVer1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hyundai Solaris 1 пок. вер 1" />
+
+            <Button
+                android:id="@+id/buttonHyundai2genVer2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hyundai Solaris 1 пок. вер 2" />
+
+            <Button
                 android:id="@+id/buttonRenaultLoganABS"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

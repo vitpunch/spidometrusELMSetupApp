@@ -5,6 +5,15 @@
     <uses-permission
         android:name="android.permission.BLUETOOTH"
         tools:remove="android:maxSdkVersion" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        tools:remove="android:maxSdkVersion" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
 
     <application
         android:allowBackup="true"
@@ -30,10 +39,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".serialport.discovery.DiscoveryActivity"
-            android:exported="true">
-        </activity>
+        <service
+            android:name=".serialport.service.SerialPortService">
+        </service>
+        <service android:name=".serialport.server.SerialPortServerService"/>
+
+        <activity android:name=".serialport.discovery.DiscoveryActivity" />
     </application>
 
 </manifest>

@@ -13,9 +13,9 @@ import com.spidometrus.elmWinderSetup.serialport.tools.LogUtil
 import com.spidometrus.elmWinderSetup.serialport.tools.ToastUtil
 
 /**
- * BluetoothStatusBroadcastReceiver 蓝牙连接状态变更广播接收器
- * 在这里只对传统蓝牙的断开进行处理
- * 实时监听蓝牙断开，若蓝牙断开则自动打开
+ * BluetoothStatusBroadcastReceiver Изменение статуса подключения Bluetooth широковещательный приемник
+ * Здесь обрабатывается только отключение традиционного Bluetooth
+ * Мониторинг отключения Bluetooth в режиме реального времени, если Bluetooth отключен, он автоматически включится
  * @Author Shanya
  * @Date 2021-7-21
  * @Version 4.0.0
@@ -36,14 +36,14 @@ class BluetoothStatusBroadcastReceiver:BroadcastReceiver() {
             BluetoothAdapter.ACTION_STATE_CHANGED -> {
                 when (intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, 0)) {
                     BluetoothAdapter.STATE_TURNING_ON -> {
-                        LogUtil.log("蓝牙打开成功")
+                        LogUtil.log("Bluetooth успешно включен")
                         context?.let {
                             ToastUtil.toast(it, SerialPortToast.openBluetoothSucceeded)
                         }
                     }
                     BluetoothAdapter.STATE_TURNING_OFF -> {
                         if (!SerialPort.bluetoothAdapter.enable()) {
-                            LogUtil.log("蓝牙打开失败")
+                            LogUtil.log("Bluetooth не удалось включить")
                             context?.let {
                                 ToastUtil.toast(it, SerialPortToast.openBluetoothFailed)
                             }

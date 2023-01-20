@@ -40,7 +40,7 @@ import kotlin.collections.ArrayList
 @SuppressLint("MissingPermission")
 class DiscoveryActivity : AppCompatActivity() {
 
-    //连接进度对话框
+    //Диалоговое окно хода подключения
     private lateinit var connectProcessDialog: Dialog
 
     /**
@@ -52,23 +52,23 @@ class DiscoveryActivity : AppCompatActivity() {
     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_discovery)// layout.activity_discovery)
+        setContentView(R.layout.activity_discovery)
 
-        LogUtil.log("内置搜索页面创建")
+        LogUtil.log("Создание встроенной страницы поиска")
 
-        //检查是否打开蓝牙
+        //Проверьте, включен ли Bluetooth
         if (!SerialPort.bluetoothAdapter.isEnabled) {
             SerialPort.bluetoothAdapter.enable()
         }
 
-        //初始化连接进度对话框
+        //Инициализируйте диалоговое окно хода подключения
         connectProcessDialog = Dialog(this)
         connectProcessDialog.setContentView(R.layout.progress_dialog_layout)
         connectProcessDialog.setCancelable(false)
 
 
 
-        //搜索状态监听
+        //Мониторинг статуса поиска
         SerialPortDiscovery.discoveryStatusLiveData.observe(this) {
             if (it) {
                 swipeRedreshLayout.isRefreshing = true
@@ -79,12 +79,12 @@ class DiscoveryActivity : AppCompatActivity() {
             }
         }
 
-        //连接监听
+        //Мониторинг подключения
         SerialPort.setConnectListener {
             finish()
         }
 
-        //下拉搜索监听
+        //Выпадающий монитор поиска
         swipeRedreshLayout.setOnRefreshListener {
             doDiscovery()
         }
@@ -110,14 +110,14 @@ class DiscoveryActivity : AppCompatActivity() {
                 }
                 .request { allGranted, grantedList, deniedList ->
                     if (allGranted) {
-                        LogUtil.log("蓝牙权限获取成功")
-                        //设备列表初始化
+                        LogUtil.log("Разрешение Bluetooth было успешно получено")
+                        //Инициализация списка устройств
                         recyclerViewInit()
-                        //开始搜索
+                        //Начните поиск
                         doDiscovery()
                     } else {
                         ToastUtil.toast(this, SerialPortToast.permission)
-                        LogUtil.log("蓝牙权限获取失败")
+                        LogUtil.log("Не удалось получить разрешение Bluetooth")
                         finish()
                     }
                 }
@@ -125,7 +125,7 @@ class DiscoveryActivity : AppCompatActivity() {
     }
 
     /**
-    * 开始执行设备搜索
+    * Начните выполнять поиск устройства
     * @Author Shanya
     * @Date 2021/5/28
     * @Version 3.1.0
@@ -150,7 +150,7 @@ class DiscoveryActivity : AppCompatActivity() {
     }
 
     /**
-    * 设备列表初始化
+    * Инициализация списка устройств
     * @Author Shanya
     * @Date 2021/5/28
     * @Version 3.1.0
@@ -181,7 +181,7 @@ class DiscoveryActivity : AppCompatActivity() {
     }
 
     /**
-    * 创建右上角菜单
+    * Создайте меню в правом верхнем углу
     * @param menu
     * @Author Shanya
     * @Date 2021/5/28
@@ -193,7 +193,7 @@ class DiscoveryActivity : AppCompatActivity() {
     }
 
     /**
-    * 右上角菜单项监听
+    * Пункт меню мониторинг в правом верхнем углу
     * @param item
     * @Author Shanya
     * @Date 2021/5/28
@@ -209,7 +209,7 @@ class DiscoveryActivity : AppCompatActivity() {
     }
 
     /**
-    * Activity销毁
+    * Activity уничтожать
     * @Author Shanya
     * @Date 2021/5/28
     * @Version 3.1.0
@@ -221,15 +221,15 @@ class DiscoveryActivity : AppCompatActivity() {
             SerialPortDiscovery.stopBleScan()
         } catch (e: SecurityException) {
             e.printStackTrace()
-            LogUtil.log("没有获取蓝牙权限！")
+            LogUtil.log("Не получил разрешение Bluetooth！")
         }
 
         connectProcessDialog.dismiss()
-        LogUtil.log("内置搜索页面销毁")
+        LogUtil.log("Уничтожение встроенной страницы поиска")
     }
 
     /**
-    * 设备列表适配器
+    * Адаптер списка устройств
     * @Author Shanya
     * @Date 2021-8-13
     * @Version 4.0.3
@@ -270,8 +270,6 @@ class DiscoveryActivity : AppCompatActivity() {
                     connectProcessDialog.show()
                     SerialPort._connectDevice(device, this@DiscoveryActivity)
                 }
-
-
             }
             return holder
         }

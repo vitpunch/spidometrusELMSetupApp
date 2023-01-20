@@ -24,15 +24,15 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-//新连接状态接口
+//Новый интерфейс статуса подключения
 typealias ConnectionStatusCallback = (status: Boolean, bluetoothDevice: BluetoothDevice?) -> Unit
-//旧连接状态接口
+//Старый интерфейс состояния подключения
 @Deprecated(message = "该回调在4.0.0版本开始被弃用",replaceWith = ReplaceWith(expression = "ConnectionStatusCallback"))
 typealias ConnectStatusCallback = (status: Boolean, device: Device) -> Unit
-//连接接口
+//Интерфейс подключения
 typealias ConnectCallback = () -> Unit
-//连接结果接口
-@Deprecated(message = "该方法在4.2.0版本开始被弃用",replaceWith = ReplaceWith("ConnectionStatusCallback"))
+//Интерфейс результата подключения
+@Deprecated(message = "Этот метод устарел с версии 4.2.0",replaceWith = ReplaceWith("ConnectionStatusCallback"))
 typealias ConnectionResultCallback = (result: Boolean, bluetoothDevice: BluetoothDevice?) -> Unit
 //Ble device can work callback
 typealias BleCanWorkCallback = () -> Unit
@@ -40,10 +40,10 @@ typealias BleCanWorkCallback = () -> Unit
 
 
 /**
- * SerialPortConnect 连接管理类
+ * SerialPortConnect Класс управления подключением
  * @UpdateContent
- * 1. 部分代码重构
- * 2. 新增对BLE设备的支持
+ * 1. Частичный рефакторинг кода
+ * 2. Новая пара BLE Поддержка устройств
  * @Author Shanya
  * @Date 2021-7-21
  * @Version 4.0.0
@@ -51,31 +51,31 @@ typealias BleCanWorkCallback = () -> Unit
 @SuppressLint("MissingPermission")
 internal object SerialPortConnect {
 
-    //传统设备UUID
+    //Традиционное оборудование UUID
     internal var UUID_LEGACY = "00001101-0000-1000-8000-00805F9B34FB"
-    //BLE设备UUID
+    //БЛЕДНЫЙ
     internal var UUID_BLE = "0000ffe1-0000-1000-8000-00805f9b34fb"
-    //BLE 接收UUID
+    //BLE получить UUID
     internal var UUID_BLE_READ = ""
-    //BLE 发送UUID
+    //BLE отправлять UUID
     internal var UUID_BLE_SEND = ""
-    //是否开启间隔自动重连
+    //Следует ли включать интервал для автоматического повторного подключения
     internal var autoReconnectAtIntervalsFlag = false
-    //开启间隔自动重连时间间隔 单位ms
+    //Включите интервал, автоматически повторно подключите единицу измерения временного интервала мс
     internal var autoReconnectIntervalsTime = 10000
-    //蓝牙通信Socket
+    //Связь по Bluetooth Socket
     internal var bluetoothSocket: BluetoothSocket?= null
-    //蓝牙通信inputStream
+    //Связь по Bluetooth inputStream
     internal var inputStream: InputStream?= null
-    //连接状态
+    //Статус подключения
     internal var connectStatus = false
-    //自动连接标志（执行自动连接后即为 true）
+    //Флаг автоматического подключения (после выполнения автоматического подключения он true）
     internal var autoConnectFlag = false
-    //已经连接的传统设备
+    //Подключенное традиционное оборудование
     internal var connectedLegacyDevice: BluetoothDevice ?= null
-    //已经连接的BLE设备
+    //Уже подключенный BLE оборудование
     internal var connectedBleDevice: BluetoothDevice ?= null
-    //上一次成功连接的设备地址
+    //Адрес последнего успешно подключенного устройства
     internal var lastDeviceAddress = ""
 
     internal var readGattCharacteristic: BluetoothGattCharacteristic? = null
@@ -87,7 +87,7 @@ internal object SerialPortConnect {
 
     internal var gattServiceList = HashMap<String, HashMap<String, Int>>()
     /**
-     * bluetoothGattCallback BLE设备连接回调
+     * bluetoothGattCallback BLE Обратный вызов подключения устройства
      * @Author Shanya
      * @Date 2021-7-21
      * @Version 4.0.0
@@ -111,7 +111,7 @@ internal object SerialPortConnect {
         override fun onConnectionStateChange(gatt: BluetoothGatt?, status: Int, newState: Int) {
             super.onConnectionStateChange(gatt, status, newState)
 
-            //BLE设备连接成功
+            //Устройство BLE подключено успешно
             if (newState == BluetoothProfile.STATE_CONNECTED) {
                 connectedResult(
                     SerialPort.newContext,
@@ -121,7 +121,7 @@ internal object SerialPortConnect {
                 )
             }
 
-            //BLE设备断开连接
+            //Устройство BLE отключено
             if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 if (connectedBleDevice == null) {
                     connectedResult(
@@ -189,7 +189,7 @@ internal object SerialPortConnect {
                     }
                 }
             } catch (e: NullPointerException) {
-                Log.e("SerialPort", "BLE接收UUID不正确，请检查！")
+                Log.e("SerialPort", "UUID, полученный BLE, неверен, пожалуйста, проверьте!")
                 throw RuntimeException("BLE接收UUID不正确，请检查！")
             }
         }
