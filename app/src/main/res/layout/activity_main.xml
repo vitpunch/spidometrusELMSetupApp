@@ -58,7 +58,13 @@
                 android:id="@+id/buttonFordTransit7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Ford Transit 7" />
+                android:text="Ford Transit 7 2014-нв" />
+
+            <Button
+                android:id="@+id/buttonFordTransit6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Transit 6 2006-2014" />
 
             <Button
                 android:id="@+id/buttonHyundai1genVer1"
@@ -76,7 +82,7 @@
                 android:id="@+id/buttonRenaultLoganABS"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Рено Логан2 с АБС" />
+                android:text="Renault Logan/Sandero 2 с АБС" />
 
             <Button
                 android:id="@+id/buttonToyota"
@@ -85,16 +91,22 @@
                 android:text="Toyota" />
 
             <Button
-                android:id="@+id/buttonUAZPatriot"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="УАЗ Патриот" />
-
-            <Button
                 android:id="@+id/buttonGAZelle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="ГАЗель Соболь" />
+
+            <Button
+                android:id="@+id/buttonKamazKilometers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Камаз километры" />
+
+            <Button
+                android:id="@+id/buttonKamazMothours"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Камаз Моточасы" />
 
             <Button
                 android:id="@+id/buttonLadaGrantaWithoutABS"
@@ -125,6 +137,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="ПАЗ Вектор Некст" />
+
+            <Button
+                android:id="@+id/buttonUAZPatriot"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="УАЗ Патриот" />
 
         </LinearLayout>
     </ScrollView>
