@@ -55,6 +55,24 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/buttonFordMondeo4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Mondeo 4 2007-2015" />
+
+            <Button
+                android:id="@+id/buttonFordMondeo5_25"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Mondeo 5 (2,5L), Explorer 2015-2018" />
+
+            <Button
+                android:id="@+id/buttonFordExplorer5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Explorer 2010-2015" />
+
+            <Button
                 android:id="@+id/buttonFordTransit7"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
