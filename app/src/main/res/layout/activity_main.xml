@@ -55,6 +55,30 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/buttonCitroenBerlingo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Citroen Berlingo 2008-" />
+
+            <Button
+                android:id="@+id/buttonFordExplorer5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Explorer 2010-2015" />
+
+            <Button
+                android:id="@+id/buttonFordFocus3_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Focus 3 2011-2015" />
+
+            <Button
+                android:id="@+id/buttonFordFocus3_2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Focus 3 rest 2014-2019" />
+
+            <Button
                 android:id="@+id/buttonFordMondeo4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -67,34 +91,59 @@
                 android:text="Ford Mondeo 5 (2,5L), Explorer 2015-2018" />
 
             <Button
-                android:id="@+id/buttonFordExplorer5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Ford Explorer 2010-2015" />
-
-            <Button
-                android:id="@+id/buttonFordTransit7"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Ford Transit 7 2014-нв" />
-
-            <Button
                 android:id="@+id/buttonFordTransit6"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Ford Transit 6 2006-2014" />
 
             <Button
+                android:id="@+id/buttonFordTransit7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Ford Transit 7 2014-н.в." />
+
+
+            <Button
                 android:id="@+id/buttonHyundai1genVer1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Hyundai Solaris 1 пок. вер 1" />
+                android:text="Hyundai Solaris 2010-2014 АКП версия 1" />
+
+            <Button
+                android:id="@+id/buttonHyundai1genVer2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hyundai Solaris 2010-2014 АКП версия 2" />
+
+            <Button
+                android:id="@+id/buttonHyundai1genRest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hyundai Solaris 2014-2017" />
+
+            <Button
+                android:id="@+id/buttonHyundai2genVer1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hyundai Solaris 2017-н.в. версия 1" />
 
             <Button
                 android:id="@+id/buttonHyundai2genVer2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Hyundai Solaris 1 пок. вер 2" />
+                android:text="Hyundai Solaris 2017-н.в. версия 2" />
+
+            <Button
+                android:id="@+id/buttonHyundai2genVer3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Hyundai Solaris 2017-н.в. версия 3" />
+
+            <Button
+                android:id="@+id/buttonMitsubishiL200"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Mitsubishi L200 2015- н.в." />
 
             <Button
                 android:id="@+id/buttonRenaultLoganABS"
