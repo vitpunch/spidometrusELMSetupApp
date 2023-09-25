@@ -284,9 +284,14 @@ class DiscoveryActivity : AppCompatActivity() {
 
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(holder: DevicesViewHolder, position: Int) {
+            val settings = getSharedPreferences("lastConnectedDevice", MODE_PRIVATE);
             if (pairingStatus) {
                 val current = pairedDevicesListBD[position]
                 holder.textViewDeviceName.text = current.name
+                val addressDev = current.address
+                val addressSaved = settings.getString("lastConnectedDevice","не знаю")
+                if(addressDev==addressSaved)
+                    holder.textViewDeviceAddress.setBackgroundColor(0xFF00FF00.toInt())
                 holder.textViewDeviceAddress.text = current.address
                 when (current.type) {
                     BluetoothDevice.DEVICE_TYPE_UNKNOWN -> {

@@ -1,6 +1,7 @@
 package com.spidometrus.elmWinderSetup
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -17,11 +18,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
+
             val stringBuilder = StringBuilder()
             val textViewReceived = findViewById<TextView>(R.id.textViewReceiced)
             val textViewConnectInfo = findViewById<TextView>(R.id.textViewConnectInfo)
             val buttonConnect = findViewById<Button>(R.id.buttonConnect)
             val buttonDisconnect = findViewById<Button>(R.id.buttonDisconnect)
+        val settings = getSharedPreferences("lastConnectedDevice", MODE_PRIVATE);
+
+
+        textViewConnectInfo.text = "Last device -> " + settings.getString("lastConnectedDevice","не знаю")
 
         val buttonCitroenBerlingo = findViewById<Button>(R.id.buttonCitroenBerlingo)
         val buttonFordMondeo4 = findViewById<Button>(R.id.buttonFordMondeo4)
@@ -61,9 +67,14 @@ class MainActivity : AppCompatActivity() {
                                                     "device:\t${bluetoothDevice?.name}\n" +
                                                             "addres:\t${bluetoothDevice?.address}\n" +
                                                             "type:\t${bluetoothDevice?.type}"
+                                        val prefEditor : SharedPreferences.Editor = settings.edit();
+                                        prefEditor.putString("lastConnectedDevice",bluetoothDevice?.address)
+                                        prefEditor.commit()
                                     }
                                     else {
-                                            textViewConnectInfo.text = ""
+                                        val lastConnectedDevice = settings.getString("lastConnectedDevice","не знаю")
+                                        textViewConnectInfo.text = "Last device -> " + lastConnectedDevice
+
                                     }
                             }
                     }

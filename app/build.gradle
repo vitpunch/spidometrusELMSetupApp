@@ -9,11 +9,11 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.spidometrus.elmWinderSetup"
+        applicationId "ru.spidometrus.elmWinderSetup"
         minSdk 21
         targetSdk 33
         versionCode 1
-        versionName '1.0.5'
+        versionName '1.1.0'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
