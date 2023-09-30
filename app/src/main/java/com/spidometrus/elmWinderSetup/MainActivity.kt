@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
     @SuppressLint("MissingPermission", "SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -87,21 +88,19 @@ class MainActivity : AppCompatActivity() {
                             val percUnit = 100.0 / firmWareStrings.size
                             var perc = 0.0
                             stringBuilder.clear()
-                            serialPort.sendData("\r\n")
-                            delay(50)
-                            serialPort.sendData("rSN")
-                            delay(50)
-                            serialPort.sendData("\r\n")
+                            serialPort.sendData("rSN\r\n")
                             delay(50)
                             serialPort.sendData("ver\r\n")
-                            delay(50)
-                            serialPort.sendData("wH\r\n")
-                            delay(2000)
-                        for (string in firmWareStrings) {
-                                serialPort.sendData(string)
-                                delay(50)
-                                serialPort.sendData("\r\n")
-                                delay(20)
+                            delay(100)
+                            serialPort.sendData("wH")
+                            delay(200)
+                            serialPort.sendData("\r\n")
+                            delay(1000)
+                            for (string in firmWareStrings) {
+                                serialPort.sendData(string+"\r\n")
+                                //delay(5)
+                                //serialPort.sendData("\r\n")
+                                delay(35)
                                 perc += percUnit
                                 writeProgressBar.progress = perc.toInt()
                                 //                                    delay(100L)

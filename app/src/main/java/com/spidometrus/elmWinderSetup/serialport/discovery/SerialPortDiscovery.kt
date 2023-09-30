@@ -73,7 +73,7 @@ internal object SerialPortDiscovery {
      * @Version 4.0.3
      */
     internal fun addDevice(bluetoothDevice: BluetoothDevice) {
-        if (!SerialPortDiscovery.unPairedDevicesListBD.contains(bluetoothDevice) && !SerialPortDiscovery.pairedDevicesListBD.contains(bluetoothDevice)) {
+        if (!SerialPortDiscovery.unPairedDevicesListBD.contains(bluetoothDevice) && !SerialPortDiscovery.pairedDevicesListBD.contains(bluetoothDevice) && bluetoothDevice.name=="OBDII") {
             SerialPortDiscovery.unPairedDevicesListBD.add(bluetoothDevice)
             LogUtil.log("找到蓝牙设备","设备名：${bluetoothDevice.name}  " +
                     "设备地址：${bluetoothDevice.address}  " +
@@ -134,10 +134,12 @@ internal object SerialPortDiscovery {
             pairedDevicesListBD.clear()
             pairedDevicesList.clear()
             for (device in pairedDevices){
-                pairedDevicesListBD.add(device)
-                pairedDevicesList.add(
-                    Device(device.name ?:"",device.address?:"",device.type)
-                )
+                if(device.name=="OBDII"){
+                    pairedDevicesListBD.add(device)
+                    pairedDevicesList.add(
+                        Device(device.name ?:"",device.address?:"",device.type)
+                    )
+                }
             }
         }
 

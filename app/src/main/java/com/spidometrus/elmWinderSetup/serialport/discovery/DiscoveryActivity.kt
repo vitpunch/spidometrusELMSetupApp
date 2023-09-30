@@ -291,7 +291,7 @@ class DiscoveryActivity : AppCompatActivity() {
                 val addressDev = current.address
                 val addressSaved = settings.getString("lastConnectedDevice","не знаю")
                 if(addressDev==addressSaved)
-                    holder.textViewDeviceAddress.setBackgroundColor(0xFF00FF00.toInt())
+                    holder.itemView.setBackgroundColor(0x55009900.toInt())
                 holder.textViewDeviceAddress.text = current.address
                 when (current.type) {
                     BluetoothDevice.DEVICE_TYPE_UNKNOWN -> {
