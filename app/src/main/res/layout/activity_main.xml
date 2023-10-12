@@ -176,6 +176,12 @@
                 android:text="Камаз Моточасы" />
 
             <Button
+                android:id="@+id/buttonLadaGrantaAT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Лада Гранта Автомат" />
+
+            <Button
                 android:id="@+id/buttonLadaGrantaWithoutABS"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
