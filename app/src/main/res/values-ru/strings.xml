@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">spidometrus ELM Setup</string>
+    <string name="app_name">Spidometrus ELM Setup</string>
     <string name="connectSucceededToast">Подключено успешно</string>
     <string name="connectFailedToast">Подключить не удалось</string>
     <string name="disconnectToast">Отключено</string>

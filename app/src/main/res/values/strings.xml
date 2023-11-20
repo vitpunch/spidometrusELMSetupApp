@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">spidometrus ELM Setup</string>
+    <string name="app_name">Spidometrus ELM Setup</string>
     <!-- Strings used for fragments for navigation -->
 
     <string name="connectSucceededToast">Connection succeeded</string>

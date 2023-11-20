@@ -1,17 +1,23 @@
 package com.spidometrus.elmWinderSetup
 
 import android.annotation.SuppressLint
+import android.bluetooth.BluetoothDevice
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.buttonFordFocus3_1
+import kotlinx.android.synthetic.main.activity_main.buttonFordFocus3_2
+import kotlinx.android.synthetic.main.activity_main.buttonFordTransit6
+import kotlinx.android.synthetic.main.activity_main.buttonKamazKilometers
+import kotlinx.android.synthetic.main.activity_main.buttonKamazMothours
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val settings = getSharedPreferences("lastConnectedDevice", MODE_PRIVATE);
 
 
-        textViewConnectInfo.text = "Last device -> " + settings.getString("lastConnectedDevice","не знаю")
+        textViewConnectInfo.text = "Последнее устройство -> " + settings.getString("lastConnectedDevice","ещё не подключал")
 
         val buttonCitroenBerlingo = findViewById<Button>(R.id.buttonCitroenBerlingo)
         val buttonFordMondeo4 = findViewById<Button>(R.id.buttonFordMondeo4)
@@ -59,12 +65,13 @@ class MainActivity : AppCompatActivity() {
             val writeProgressBar = findViewById<ProgressBar>(R.id.WriteProgressBar)
 
             val serialPort = com.spidometrus.elmWinderSetup.serialport.SerialPortBuilder
-                    .setReceivedDataCallback { MainScope().launch { stringBuilder.append(it) } }
+                    .setReceivedDataCallback { MainScope().launch { stringBuilder.insert(0,it)}}// append(it) } }
                     .setReadDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.READ_STRING)
                     .setSendDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.SEND_STRING)
                     .setConnectionStatusCallback { status, bluetoothDevice ->
                             MainScope().launch {
                                     if (status) {
+                                        textViewConnectInfo.setBackgroundColor(0xFF5500FF00.toInt())
                                             textViewConnectInfo.text =
                                                     "device:\t${bluetoothDevice?.name}\n" +
                                                             "addres:\t${bluetoothDevice?.address}\n" +
@@ -74,14 +81,17 @@ class MainActivity : AppCompatActivity() {
                                         prefEditor.commit()
                                     }
                                     else {
-                                        val lastConnectedDevice = settings.getString("lastConnectedDevice","не знаю")
-                                        textViewConnectInfo.text = "Last device -> " + lastConnectedDevice
+                                        textViewConnectInfo.setBackgroundColor(0x55FF0000.toInt())
+                                        textViewConnectInfo.text = "Последнее устройство -> " + settings.getString("lastConnectedDevice","ещё не подключал")
 
                                     }
                             }
                     }
                     .build(this)
-            buttonConnect.setOnClickListener { serialPort.openDiscoveryActivity() }
+            buttonConnect.setOnClickListener {
+                stringBuilder.clear()
+                textViewReceived.text = stringBuilder.toString()
+                serialPort.openDiscoveryActivity() }
             buttonDisconnect.setOnClickListener { serialPort.disconnect() }
 
             suspend fun sender(firmWareStrings: Array<String>) = coroutineScope{
@@ -96,12 +106,12 @@ class MainActivity : AppCompatActivity() {
                             serialPort.sendData("wH")
                             delay(200)
                             serialPort.sendData("\r\n")
-                            delay(1000)
+                            delay(2000)
                             for (string in firmWareStrings) {
                                 serialPort.sendData(string+"\r\n")
                                 //delay(5)
                                 //serialPort.sendData("\r\n")
-                                delay(35)
+                                delay(40)
                                 perc += percUnit
                                 writeProgressBar.progress = perc.toInt()
                                 //                                    delay(100L)
@@ -436,7 +446,6 @@ class MainActivity : AppCompatActivity() {
                     ":107FDC001F0E6F166E38E832070B0009D8A4F9EFA4",
                     ":107FEC003FF0FBEF3FF0F0EF3FF070887680768249",
                     ":047FFC00768C12006D",
-                    ":020000040020DA",
                     ":00000001FF"
                 )
                 MainScope().launch { sender(firmWareStrings) }

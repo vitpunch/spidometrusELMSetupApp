@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import com.spidometrus.elmWinderSetup.MainActivity
 import com.spidometrus.elmWinderSetup.serialport.connect.*
 import com.spidometrus.elmWinderSetup.serialport.connect.SerialPortConnect
 import com.spidometrus.elmWinderSetup.serialport.discovery.*

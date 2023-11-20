@@ -224,7 +224,7 @@
         android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#DABCBC"
+        android:background="#E6D8D8"
         android:fillViewport="true"
         app:layout_constraintHeight_percent="0.2"
         app:layout_constraintStart_toStartOf="parent"
