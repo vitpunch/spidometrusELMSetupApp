@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -64,8 +65,23 @@ class MainActivity : AppCompatActivity() {
 
             val writeProgressBar = findViewById<ProgressBar>(R.id.WriteProgressBar)
 
+        var deny = true
+
             val serialPort = com.spidometrus.elmWinderSetup.serialport.SerialPortBuilder
-                    .setReceivedDataCallback { MainScope().launch { stringBuilder.insert(0,it)}}// append(it) } }
+                    .setReceivedDataCallback { MainScope().launch {
+                        stringBuilder.append(it)
+                        textViewReceived.text = stringBuilder.toString()
+                        Log.d("Received",it)
+                        var check = it.last()
+                        when(check){
+                            '>', '#' -> deny= true
+                            else -> deny=false
+                        }
+//                        if ((it.last()=='>') or (it.last()=='#') or (it.last()=='H'))
+//                            deny = true
+//                        else
+//                            deny = false
+                    }}// append(it) } }
                     .setReadDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.READ_STRING)
                     .setSendDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.SEND_STRING)
                     .setConnectionStatusCallback { status, bluetoothDevice ->
@@ -93,33 +109,32 @@ class MainActivity : AppCompatActivity() {
                 textViewReceived.text = stringBuilder.toString()
                 serialPort.openDiscoveryActivity() }
             buttonDisconnect.setOnClickListener { serialPort.disconnect() }
+        suspend fun sendDataSpido(data : String) = coroutineScope {
+            launch {
+                while (!deny){
+                    Log.d("deny", "False")
+                    delay(100)
+                }
+                deny=false
+                Log.d("deny","True")
+                serialPort.sendData(data)
+            }
+        }
+            suspend fun sender(firmWareStrings: Array<String>){
 
-            suspend fun sender(firmWareStrings: Array<String>) = coroutineScope{
-                    launch {
-                            val percUnit = 100.0 / firmWareStrings.size
-                            var perc = 0.0
-                            stringBuilder.clear()
-                            serialPort.sendData("rSN\r\n")
-                            delay(50)
-                            serialPort.sendData("ver\r\n")
-                            delay(100)
-                            serialPort.sendData("wH")
-                            delay(200)
-                            serialPort.sendData("\r\n")
-                            delay(2000)
+                val percUnit = 100.0 / firmWareStrings.size
+                var perc = 0.0
+                stringBuilder.clear()
+                serialPort.sendData("ver\r\n")
+                deny=false
+                sendDataSpido("rSN\r\n")
+                sendDataSpido("wH\r\n")
                             for (string in firmWareStrings) {
-                                serialPort.sendData(string+"\r\n")
-                                //delay(5)
-                                //serialPort.sendData("\r\n")
-                                delay(40)
+                                sendDataSpido(string+"\r\n")
                                 perc += percUnit
                                 writeProgressBar.progress = perc.toInt()
-                                //                                    delay(100L)
-                                textViewReceived.text = stringBuilder.toString()
+
                             }
-                        delay(1000)
-                        textViewReceived.text = stringBuilder.toString()
-                    }
             }
             buttonCitroenBerlingo.setOnClickListener {
                 val firmWareStrings = arrayOf(":04100000F9EF3DF0D7",

@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.spidometrus.elmWinderSetup.MainActivity
 import com.spidometrus.elmWinderSetup.serialport.connect.*
@@ -721,9 +722,11 @@ class SerialPort private constructor() {
             SerialPortConnect.connectedLegacyDevice?.let {
                 sendLegacyData(data)
             }
-            SerialPortConnect.connectedBleDevice?.let {
-                sendBleData(data)
-            }
+            Log.d("Sended", data)
+
+//            SerialPortConnect.connectedBleDevice?.let {
+//                sendBleData(data)
+//            }
         } else {
             LogUtil.log("请先连接设备，再发送数据")
             newContext?.let { context ->

@@ -200,7 +200,7 @@ object SerialPortBuilder {
 
     /**
      * 接收数据回调接口函数
-     * @param receivedDataCallback 接收数据回调接口
+     * @param receivedDataCallback Интерфейс обратного вызова для получения данных
      * @Author Shanya
      * @Date 2021-8-7
      * @Version 4.0.2
