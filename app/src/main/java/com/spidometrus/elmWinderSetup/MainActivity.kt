@@ -3,7 +3,6 @@ package com.spidometrus.elmWinderSetup
 import android.annotation.SuppressLint
 import android.bluetooth.BluetoothDevice
 import android.content.SharedPreferences
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -16,6 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.buttonFordTransit6
 import kotlinx.android.synthetic.main.activity_main.buttonKamazKilometers
 import kotlinx.android.synthetic.main.activity_main.buttonKamazMothours
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
             val stringBuilder = StringBuilder()
             val textViewReceived = findViewById<TextView>(R.id.textViewReceiced)
             val textViewConnectInfo = findViewById<TextView>(R.id.textViewConnectInfo)
+        val textWinderVersion = findViewById<TextView>(R.id.textWinderVersion)
             val buttonConnect = findViewById<Button>(R.id.buttonConnect)
             val buttonDisconnect = findViewById<Button>(R.id.buttonDisconnect)
         val settings = getSharedPreferences("lastConnectedDevice", MODE_PRIVATE);
@@ -66,6 +67,35 @@ class MainActivity : AppCompatActivity() {
             val writeProgressBar = findViewById<ProgressBar>(R.id.WriteProgressBar)
 
         var deny = true
+        var connectionStatus = false
+        var newOrOldVersionWinder = "old"
+
+        val connectionStatusCallback : (Boolean, BluetoothDevice?) -> Unit =
+            { status, bluetoothDevice ->
+                MainScope().launch {
+                    if (status) {
+                        connectionStatus = true
+                        textViewConnectInfo.setBackgroundColor(0xFF5500FF00.toInt())
+                        textViewConnectInfo.text =
+                            "device:\t${bluetoothDevice?.name}\n" +
+                                    "addres:\t${bluetoothDevice?.address}\n" +
+                                    "type:\t${bluetoothDevice?.type}"
+                        val prefEditor: SharedPreferences.Editor = settings.edit();
+                        prefEditor.putString("lastConnectedDevice", bluetoothDevice?.address)
+                        prefEditor.commit()
+                    } else {
+                        connectionStatus = false
+                        textViewConnectInfo.setBackgroundColor(0x55FF0000.toInt())
+                        textViewConnectInfo.text = "Последнее устройство -> " + settings.getString(
+                            "lastConnectedDevice",
+                            "ещё не подключал"
+                        )
+
+                    }
+                }
+            }
+
+
 
             val serialPort = com.spidometrus.elmWinderSetup.serialport.SerialPortBuilder
                     .setReceivedDataCallback { MainScope().launch {
@@ -84,53 +114,103 @@ class MainActivity : AppCompatActivity() {
                     }}// append(it) } }
                     .setReadDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.READ_STRING)
                     .setSendDataType(com.spidometrus.elmWinderSetup.serialport.SerialPort.SEND_STRING)
-                    .setConnectionStatusCallback { status, bluetoothDevice ->
-                            MainScope().launch {
-                                    if (status) {
-                                        textViewConnectInfo.setBackgroundColor(0xFF5500FF00.toInt())
-                                            textViewConnectInfo.text =
-                                                    "device:\t${bluetoothDevice?.name}\n" +
-                                                            "addres:\t${bluetoothDevice?.address}\n" +
-                                                            "type:\t${bluetoothDevice?.type}"
-                                        val prefEditor : SharedPreferences.Editor = settings.edit();
-                                        prefEditor.putString("lastConnectedDevice",bluetoothDevice?.address)
-                                        prefEditor.commit()
-                                    }
-                                    else {
-                                        textViewConnectInfo.setBackgroundColor(0x55FF0000.toInt())
-                                        textViewConnectInfo.text = "Последнее устройство -> " + settings.getString("lastConnectedDevice","ещё не подключал")
-
-                                    }
-                            }
-                    }
+                    .setConnectionStatusCallback (connectionStatusCallback)
                     .build(this)
-            buttonConnect.setOnClickListener {
+
+
+
+        buttonConnect.setOnClickListener {
+            stringBuilder.clear()
+            textViewReceived.text = stringBuilder.toString()
+            serialPort.openDiscoveryActivity()
+            var resultRequestVersion: String = ""
+            var responseString = ""
+            MainScope().launch {
+                while (!connectionStatus) {
+                    delay(20)
+                }
                 stringBuilder.clear()
-                textViewReceived.text = stringBuilder.toString()
-                serialPort.openDiscoveryActivity() }
-            buttonDisconnect.setOnClickListener { serialPort.disconnect() }
-        suspend fun sendDataSpido(data : String) = coroutineScope {
+//                serialPort.sendData("\r\n")
+//                while (!deny){}
+//                stringBuilder.clear()
+                serialPort.sendData("ver\r\n")
+                deny = false
+                var i = 0
+                while (!deny) {
+                    delay(10)
+//                    Log.d("version", "Not defined")
+                    //Если 10 раз то моталка не отвечает
+                    if (i++ > 10) {
+                        resultRequestVersion = "Моталка не отвечает"
+                        break
+                    }
+                }
+                if (resultRequestVersion != "")
+                    cancel()
+                Log.d("version", stringBuilder.toString())
+                // проверк версии
+                responseString = stringBuilder.toString()
+                responseString = responseString.substringAfter("\n").substringBefore("\r")
+                Log.d("versionTrimmed", responseString)
+
+                if (resultRequestVersion != "") {
+                    textWinderVersion.text = "Моталка не отвечает. Наверное она не в режиме прошивки."
+                    newOrOldVersionWinder="not respond"
+//                    Log.d("version result", "моталка не отвечает")
+                } else if (responseString == "1.1.0") {
+                    textWinderVersion.text = "Версия подмотки 1.1.0"
+                    newOrOldVersionWinder="new"
+//                    Log.d("version result", "Обновление не требуется")
+                } else if ((responseString == "1.0.0") or (responseString == "1.0.1")){
+                    textWinderVersion.text = "Версия подмотки "+responseString
+                    newOrOldVersionWinder="old"
+//                    Log.d("version result", "Надо обновляться")
+                }
+                else{
+                    textWinderVersion.text = "Вы подключили непонятную приблуду. Это не подмотка."
+                    newOrOldVersionWinder = "not defined"
+//                    Log.d("version result", "не могу расшивровать это " + responseString)
+                }
+            }
+        }
+
+        buttonDisconnect.setOnClickListener { serialPort.disconnect() }
+
+        suspend fun sendDataForNewVersion(data : String) = coroutineScope {
             launch {
                 while (!deny){
                     Log.d("deny", "False")
-                    delay(100)
+                    delay(20)
                 }
                 deny=false
                 Log.d("deny","True")
                 serialPort.sendData(data)
             }
         }
-            suspend fun sender(firmWareStrings: Array<String>){
 
+        suspend fun sendDataForOldVersion(data : String) = coroutineScope {
+            launch {
+                delay(200)
+
+                serialPort.sendData(data)
+            }
+        }
+
+
+            suspend fun sender(firmWareStrings: Array<String>){
                 val percUnit = 100.0 / firmWareStrings.size
                 var perc = 0.0
                 stringBuilder.clear()
-                serialPort.sendData("ver\r\n")
+//                serialPort.sendData("ver\r\n")
                 deny=false
-                sendDataSpido("rSN\r\n")
-                sendDataSpido("wH\r\n")
+//                sendDataSpido("rSN\r\n")
+                serialPort.sendData("wH\r\n")// sendDataForNewVersion("wH\r\n")
+                delay(1000)
                             for (string in firmWareStrings) {
-                                sendDataSpido(string+"\r\n")
+                                if (newOrOldVersionWinder=="new")
+                                    sendDataForNewVersion(string+"\r\n")
+                                else if(newOrOldVersionWinder=="old")
+                                    sendDataForOldVersion(string+"\r\n")
                                 perc += percUnit
                                 writeProgressBar.progress = perc.toInt()
 
@@ -2422,4 +2502,6 @@ class MainActivity : AppCompatActivity() {
                     MainScope().launch { sender(firmWareStrings) }
             }
     }
+
+
 }
