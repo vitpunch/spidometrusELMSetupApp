@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="horizontal"
-        app:layout_constraintHeight_percent="0.07"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
@@ -36,22 +36,39 @@
     <TextView
         android:id="@+id/textViewConnectInfo"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         android:text="ConnectInfo"
-        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/connectButtons" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewConnectInfo" />
+
+    <TextView
+        android:id="@+id/textWinderVersion"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Версия подмотки"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
 
     <ScrollView
         android:id="@+id/scrollViewButtons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.53"
-        app:layout_constraintTop_toBottomOf="@id/textViewConnectInfo" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textWinderVersion"
+        app:layout_constraintHeight_percent="0.6">
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <Button
@@ -226,9 +243,9 @@
         android:layout_height="0dp"
         android:background="#E6D8D8"
         android:fillViewport="true"
-        app:layout_constraintHeight_percent="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollViewButtons">
+        app:layout_constraintTop_toBottomOf="@id/scrollViewButtons"
+        app:layout_constraintBottom_toTopOf="@id/WriteProgressBar">
 
         <TextView
             android:id="@+id/textViewReceiced"
@@ -242,11 +259,13 @@
     <ProgressBar
         android:id="@+id/WriteProgressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3" />
+        app:layout_constraintBottom_toBottomOf="parent"
+
+
+        app:layout_constraintHeight_percent="0.03"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
