@@ -245,7 +245,7 @@ class DiscoveryActivity : AppCompatActivity() {
             val textViewDeviceName: TextView = itemView.findViewById(R.id.textViewDeviceName)
             val textViewDeviceAddress: TextView = itemView.findViewById(R.id.textViewDeviceAddress)
             val imageViewDeviceLogo: ImageView = itemView.findViewById(R.id.imageViewDeviceLogo)
-            val textViewDeviceType: TextView = itemView.findViewById(R.id.textViewDeviceType)
+//            val textViewDeviceType: TextView = itemView.findViewById(R.id.textViewDeviceType)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevicesViewHolder {
@@ -292,23 +292,25 @@ class DiscoveryActivity : AppCompatActivity() {
                 val addressSaved = settings.getString("lastConnectedDevice","не знаю")
                 if(addressDev==addressSaved)
                     holder.itemView.setBackgroundColor(0x55009900.toInt())
+                else
+                    holder.itemView.setBackgroundColor(0x55FFFFFF.toInt())
                 holder.textViewDeviceAddress.text = current.address
                 when (current.type) {
                     BluetoothDevice.DEVICE_TYPE_UNKNOWN -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_unknow)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_unknow)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo)
                     }
 
                     BluetoothDevice.DEVICE_TYPE_CLASSIC -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_traditional)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_traditional)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo_l)
                     }
                     BluetoothDevice.DEVICE_TYPE_LE -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_ble)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_ble)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo_b)
                     }
                     BluetoothDevice.DEVICE_TYPE_DUAL -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_dual)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_dual)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo_l_b)
                     }
                 }
@@ -319,20 +321,20 @@ class DiscoveryActivity : AppCompatActivity() {
                 holder.textViewDeviceAddress.text = current.address
                 when (current.type) {
                     BluetoothDevice.DEVICE_TYPE_UNKNOWN -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_unknow)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_unknow)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo)
                     }
 
                     BluetoothDevice.DEVICE_TYPE_CLASSIC -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_traditional)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_traditional)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo_l)
                     }
                     BluetoothDevice.DEVICE_TYPE_LE -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_ble)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_ble)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo_b)
                     }
                     BluetoothDevice.DEVICE_TYPE_DUAL -> {
-                        holder.textViewDeviceType.text = getString(R.string.discovery_dual)
+//                        holder.textViewDeviceType.text = getString(R.string.discovery_dual)
                         holder.imageViewDeviceLogo.setImageResource(R.mipmap.device_logo_l_b)
                     }
                 }

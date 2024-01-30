@@ -36,22 +36,11 @@
         tools:ignore="VectorDrawableCompat" />
 
     <TextView
-        android:id="@+id/textViewDeviceType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewDeviceAddress"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDeviceAddress" />
-
-    <TextView
         android:id="@+id/textViewDeviceAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/textViewDeviceType"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/textViewDeviceName"
         app:layout_constraintTop_toBottomOf="@+id/textViewDeviceName" />
 
