@@ -69,6 +69,7 @@ class MainActivity : AppCompatActivity() {
         var deny = true
         var connectionStatus = false
         var newOrOldVersionWinder = "old"
+        var buttonIsPressed = false
 
         val connectionStatusCallback : (Boolean, BluetoothDevice?) -> Unit =
             { status, bluetoothDevice ->
@@ -133,14 +134,19 @@ class MainActivity : AppCompatActivity() {
 //                serialPort.sendData("\r\n")
 //                while (!deny){}
 //                stringBuilder.clear()
+                serialPort.sendData("\r\n")
+                delay(100)
+                serialPort.sendData("\r\n")
+                delay(200)
+                stringBuilder.clear()
                 serialPort.sendData("ver\r\n")
                 deny = false
                 var i = 0
                 while (!deny) {
-                    delay(10)
+                    delay(50)
 //                    Log.d("version", "Not defined")
                     //Если 10 раз то моталка не отвечает
-                    if (i++ > 10) {
+                    if (i++ > 5) {
                         resultRequestVersion = "Моталка не отвечает"
                         break
                     }
@@ -156,6 +162,7 @@ class MainActivity : AppCompatActivity() {
                 if (resultRequestVersion != "") {
                     textWinderVersion.text = "Моталка не отвечает. Наверное она не в режиме прошивки."
                     newOrOldVersionWinder="not respond"
+                    serialPort.disconnect()
 //                    Log.d("version result", "моталка не отвечает")
                 } else if (responseString == "1.1.0") {
                     textWinderVersion.text = "Версия подмотки 1.1.0"
@@ -169,6 +176,7 @@ class MainActivity : AppCompatActivity() {
                 else{
                     textWinderVersion.text = "Вы подключили непонятную приблуду. Это не подмотка."
                     newOrOldVersionWinder = "not defined"
+                    serialPort.disconnect()
 //                    Log.d("version result", "не могу расшивровать это " + responseString)
                 }
             }
@@ -198,6 +206,9 @@ class MainActivity : AppCompatActivity() {
 
 
             suspend fun sender(firmWareStrings: Array<String>){
+                if (buttonIsPressed)
+                    return
+                buttonIsPressed=true
                 val percUnit = 100.0 / firmWareStrings.size
                 var perc = 0.0
                 stringBuilder.clear()
@@ -213,8 +224,10 @@ class MainActivity : AppCompatActivity() {
                                     sendDataForOldVersion(string+"\r\n")
                                 perc += percUnit
                                 writeProgressBar.progress = perc.toInt()
+//                                delay(50)
 
                             }
+                buttonIsPressed=false
             }
             buttonCitroenBerlingo.setOnClickListener {
                 val firmWareStrings = arrayOf(":04100000F9EF3DF0D7",
