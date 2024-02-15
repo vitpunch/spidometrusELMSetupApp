@@ -226,13 +226,19 @@
                 android:id="@+id/buttonPAZVectorNext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="ПАЗ Вектор Некст" />
+                android:text="ПАЗ Вектор Некст, Урал Некст" />
 
             <Button
-                android:id="@+id/buttonUAZPatriot"
+                android:id="@+id/buttonUAZPatriotBrain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="УАЗ Патриот" />
+                android:text="УАЗ Патриот (мозги)" />
+
+            <Button
+                android:id="@+id/buttonUAZPatriotSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="УАЗ Патриот (скорость)" />
 
         </LinearLayout>
     </ScrollView>
