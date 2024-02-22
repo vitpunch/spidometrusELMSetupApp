@@ -2,17 +2,19 @@ package com.spidometrus.elmWinderSetup.serialport.service
 
 import android.app.IntentService
 import android.content.Intent
+import android.util.Log
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import com.spidometrus.elmWinderSetup.serialport.SerialPort
 import com.spidometrus.elmWinderSetup.serialport.connect.SerialPortConnect
 import com.spidometrus.elmWinderSetup.serialport.tools.LogUtil
 import com.spidometrus.elmWinderSetup.serialport.tools.SerialPortTools
+import java.io.IOException
 
 /**
- * SerialPortService 接收数据服务
+ * SerialPortService Служба приема данных
  * @UpdateContent
- * 1. 修复中文乱码问题
+ * 1. Исправлена проблема с искаженным китайским кодом
  * @Author Shanya
  * @Date 2021-12-10
  * @Version 4.1.2
@@ -21,7 +23,7 @@ class SerialPortService : IntentService("SerialPortService") {
 
     override fun onCreate() {
         super.onCreate()
-        LogUtil.log("传统蓝牙收消息服务开启")
+        LogUtil.log("Включена традиционная служба приема сообщений по Bluetooth")
     }
 
     override fun onHandleIntent(intent: Intent?) {
@@ -33,7 +35,14 @@ class SerialPortService : IntentService("SerialPortService") {
         while (SerialPortConnect.connectStatus) {
             Thread.sleep(100)
             if (SerialPortConnect.connectStatus){
-                len = SerialPortConnect.inputStream?.available()!!
+                try{
+                    len = SerialPortConnect.inputStream?.available()!!
+                }
+                catch (e: IOException){
+                    Log.d("Exeption","Вылет по закрытому сокету")
+                    Log.d("Exeption",e.message.toString())
+                    return
+                }
                 while (len != 0) {
                     flag = true
                     buffer = ByteArray(len)

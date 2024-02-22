@@ -8,7 +8,10 @@ import com.spidometrus.elmWinderSetup.serialport.connect.ConnectionStatusCallbac
 import com.spidometrus.elmWinderSetup.serialport.connect.SerialPortConnect
 import com.spidometrus.elmWinderSetup.serialport.connect.*
 import com.spidometrus.elmWinderSetup.serialport.discovery.*
+import com.spidometrus.elmWinderSetup.serialport.strings.SerialPortToast
+import com.spidometrus.elmWinderSetup.serialport.tools.LogUtil
 import com.spidometrus.elmWinderSetup.serialport.tools.SPUtil
+import com.spidometrus.elmWinderSetup.serialport.tools.ToastUtil
 
 
 /**
@@ -330,7 +333,11 @@ object SerialPortBuilder {
      */
     fun build(context: Context): SerialPort {
         if (!SerialPort.bluetoothAdapter.isEnabled) {
-            SerialPort.bluetoothAdapter.enable()
+//            SerialPort.bluetoothAdapter.enable()
+            LogUtil.log("Надо бы включить Bluetooth")
+            SerialPort.newContext?.let {
+                ToastUtil.toast(it, SerialPortToast.openBluetoothFailed)
+            }
         }
         serialPort.build(context)
         SPUtil.getDeviceType(context)?.let { type ->

@@ -8,7 +8,7 @@
     <string name="disconnectFirstToast">Сначала отключите устройство</string>
     <string name="permissionToast">Пожалуйста, сначала  разрешите определение местоположения</string>
     <string name="openBluetoothSucceededToast">Блютуз включен успешно</string>
-    <string name="openBluetoothFailedToast">Не могу включить Блютуз</string>
+    <string name="openBluetoothFailedToast">Пожалуйста, включите BlueTooth вручную. Мне нельзя</string>
     <string name="discovery_discovering">Поиск...</string>
     <string name="discovery_select_device_connect">Пожалуйста, выберите устройство для подключения</string>
     <string name="discovery_permission_message">Вы должны разрешить следующие запросы для нормальной работы приложения</string>

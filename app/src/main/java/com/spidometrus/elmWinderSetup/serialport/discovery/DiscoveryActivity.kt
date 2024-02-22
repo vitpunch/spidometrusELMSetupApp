@@ -58,7 +58,11 @@ class DiscoveryActivity : AppCompatActivity() {
 
         //Проверьте, включен ли Bluetooth
         if (!SerialPort.bluetoothAdapter.isEnabled) {
-            SerialPort.bluetoothAdapter.enable()
+//            SerialPort.bluetoothAdapter.enable()
+            LogUtil.log("Надо бы включить Bluetooth")
+            SerialPort.newContext?.let {
+                ToastUtil.toast(it, SerialPortToast.openBluetoothFailed)
+            }
         }
 
         //Инициализируйте диалоговое окно хода подключения
