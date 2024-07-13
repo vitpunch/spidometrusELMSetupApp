@@ -344,15 +344,19 @@ class SerialPort private constructor() {
      */
     init {
         SerialPortDiscovery.discoveryStatusLiveData.value = false
-        if (bluetoothAdapter.isEnabled) {
-            LogUtil.log("Bluetooth включен")
+        if (bluetoothAdapter==null) {
+            LogUtil.log("BlueToth адаптер не найден")
+        } else {
+            if (bluetoothAdapter.isEnabled) {
+                LogUtil.log("Bluetooth включен")
 //                newContext?.let {
 //                    ToastUtil.toast(it, SerialPortToast.openBluetoothSucceeded)
 //                }
-        } else {
-            LogUtil.log("Надо бы включить Bluetooth")
-            newContext?.let {
-                ToastUtil.toast(it, SerialPortToast.openBluetoothFailed)
+            } else {
+                LogUtil.log("Надо бы включить Bluetooth")
+                newContext?.let {
+                    ToastUtil.toast(it, SerialPortToast.openBluetoothFailed)
+                }
             }
         }
     }

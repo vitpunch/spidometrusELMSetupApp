@@ -72,11 +72,16 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/buttonUAZPatriotSpeed"
+                android:id="@+id/buttonUAZPatriotBrain18_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Патриот 2018-2022 (мозги)" />
+
+            <Button
+                android:id="@+id/buttonKamazKilometers"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="УАЗ Патриот (скорость)" />
-
+                android:text="Камаз километры" />
 
             <Button
                 android:id="@+id/buttonCitroenBerlingo"
@@ -164,6 +169,12 @@
                 android:text="Hyundai Solaris 2017-н.в. версия 3" />
 
             <Button
+                android:id="@+id/buttonUAZPatriotBrain22_24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Патриот 2022+ (мозги)" />
+
+            <Button
                 android:id="@+id/buttonMitsubishiL200"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -187,17 +198,9 @@
                 android:layout_height="match_parent"
                 android:text="ГАЗель Соболь" />
 
-            <Button
-                android:id="@+id/buttonKamazKilometers"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Камаз километры" />
 
-            <Button
-                android:id="@+id/buttonKamazMothours"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Камаз Моточасы" />
+
+
 
             <Button
                 android:id="@+id/buttonLadaGrantaAT"
@@ -235,11 +238,19 @@
                 android:layout_height="match_parent"
                 android:text="ПАЗ Вектор Некст, Урал Некст" />
 
+
             <Button
-                android:id="@+id/buttonUAZPatriotBrain"
+                android:id="@+id/buttonKamazMothours"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="УАЗ Патриот (мозги)" />
+                android:text="Камаз Моточасы" />
+
+
+            <Button
+                android:id="@+id/buttonUAZPatriotSpeed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Патриот (скорость)" />
 
 
         </LinearLayout>
