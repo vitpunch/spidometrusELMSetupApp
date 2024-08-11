@@ -393,8 +393,8 @@ class SerialPort private constructor() {
     }
 
     /**
-     * 内部发送数据函数（异步线程）
-     * @param data 待发送数据
+     * 内部发送数据函数（异步线程） Внутренняя функция отправки данных (асинхронный поток)
+     * @param data 待发送数据 Данные, которые будут отправлены
      * @Author Shanya
      * @Date 2021-3-16
      * @Version 3.0.0
@@ -408,7 +408,7 @@ class SerialPort private constructor() {
                 DataUtil.string2hex(data)?.toList()!!.toByteArray()
             }
             outputStream?.write(bos)
-            LogUtil.log("SerialPort", "发送数据: $data")
+            LogUtil.log("SerialPort", "发送数据 Отправка данных: $data")
         }catch (e:Exception){
             e.printStackTrace()
         }
@@ -661,8 +661,8 @@ class SerialPort private constructor() {
     }
 
     /**
-     * 传统设备发送数据
-     * @param data 待发送数据
+     * 传统设备发送数据 Традиционное оборудование отправляет данные
+     * @param data 待发送数据 Данные, которые будут отправлены
      * @Author Shanya
      * @Date 2021-7-21
      * @Version 4.0.0
@@ -729,7 +729,7 @@ class SerialPort private constructor() {
 //                sendBleData(data)
 //            }
         } else {
-            LogUtil.log("请先连接设备，再发送数据")
+            LogUtil.log("请先连接设备，再发送数据 Пожалуйста, подключите устройство перед отправкой данных")
             newContext?.let { context ->
                 ToastUtil.toast(context, SerialPortToast.connectFirst)
             }

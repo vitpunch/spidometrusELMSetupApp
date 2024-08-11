@@ -233,6 +233,12 @@
                 android:text="Лада Ларгус" />
 
             <Button
+                android:id="@+id/buttonMoskvich3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Москвич 3" />
+
+            <Button
                 android:id="@+id/buttonPAZVectorNext"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
