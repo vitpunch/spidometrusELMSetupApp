@@ -236,7 +236,13 @@
                 android:id="@+id/buttonMoskvich3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Москвич 3" />
+                android:text="Москвич 3 (стрелки)" />
+
+            <Button
+                android:id="@+id/buttonMoskvich3Virtual"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Москвич 3 (виртуал)" />
 
             <Button
                 android:id="@+id/buttonPAZVectorNext"
